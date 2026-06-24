@@ -3,51 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>果果粥 | 个人名片</title>
+    <title>我的私人歌单</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, "PingFang SC", sans-serif;}
-        body{background:#f8f3ff;padding:30px 15px;min-height:100vh;}
-        .card{max-width:600px;margin:0 auto;background:#fff;border-radius:24px;padding:40px;box-shadow:0 4px 25px #c9b6e950;}
-        .avatar{width:130px;height:130px;border-radius:50%;object-fit:cover;margin:0 auto 22px;display:block;border:4px solid #b896e8;}
-        h1{text-align:center;color:#2d1b47;margin-bottom:10px;font-size:28px;}
-        .tag{text-align:center;color:#8866aa;margin-bottom:35px;font-size:16px;}
-        .info{margin-bottom:35px;}
-        .item{margin:18px 0;font-size:16px;line-height:1.8;color:#333;}
-        .label{font-weight:600;color:#6b4b99;width:95px;display:inline-block;}
-        .contact{margin-top:40px;padding-top:25px;border-top:1px solid #eee;}
-        .contact h3{color:#6b4b99;margin-bottom:15px;font-size:18px;}
-        .contact a{display:block;margin:12px 0;color:#8058c2;text-decoration:none;font-size:16px;transition:0.2s;}
-        .contact a:hover{color:#b896e8;}
-        .tip{margin-top:40px;text-align:center;color:#aa99bb;font-size:14px;line-height:1.6;}
+        * {margin:0;padding:0;box-sizing:border-box;font-family:system-ui, sans-serif}
+        body {background:#f8f9fa;padding:20px 12px;max-width:1200px;margin:0 auto}
+        .header {margin-bottom:24px}
+        h1 {color:#222;margin-bottom:6px;font-size:22px}
+        .update-info {color:#666;font-size:14px;margin-bottom:10px}
+        table {width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+        th,td {padding:12px 10px;text-align:left;border-bottom:1px solid #eee;font-size:15px}
+        th {background:#f0f2f5;color:#333}
+        tr:hover {background:#f7f8fa}
+        @media (max-width:768px) {th,td {padding:10px 6px;font-size:13px}}
     </style>
 </head>
 <body>
-    <div class="card">
-        <!-- 替换这里src后面的链接为你的头像图片链接，不用头像直接删除这一行 -->
-        <img class="avatar" src="https://github.com/GuoguozhouCat/GuoguozhouCat.github.io/blob/main/IMG_20260623_222315.jpg" alt="">
-
-        <h1>果果粥</h1>
-        <div class="tag">自由创作者 | 日常分享爱好者</div>
-
-        <div class="info">
-            <div class="item"><span class="label">联系电话：</span>没有哦</div>
-            <div class="item"><span class="label">微信账号：</span>你猜</div>
-            <div class="item"><span class="label">所在城市：</span>四川成都</div>
-            <div class="item"><span class="label">个人简介：</span>我是果果粥,,>∨<,, 抽中了温柔の角色卡捏
-偶尔会在户外直播呦 体力一般轻点盘喵 谢谢大家！
-会员群领壁纸to签 星守护赠录歌视频 灯牌11互关扩列咩
-普通人 在学唱歌跳舞忙的^^ 谢谢偏爱(作品好难拍唔）</div>
-        </div>
-
-        <div class="contact">
-            <h3>线上渠道</h3>
-            <a href="shturl.cc/7Slhj">个人作品/社交主页</a>
-            <a href="mailto:guoguozhou@163.com">https://v.douyin.com/fJzF0Fyf_tg/</a>
-        </div>
-
-        <div class="tip">
-            本页面为静态个人名片，仅本人可修改内容，他人无法篡改信息
-        </div>
+    <div class="header">
+        <h1>栖苑太困辽 与她的</h1>
+        <div class="update-info">共 <span id="songTotal">0</span> 首歌 | 最后更新：2026-02-22 15:17:25</div>
     </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>歌曲名称</th>
+                <th>歌手</th>
+                <th>语言</th>
+                <th>风格</th>
+                <th>切片</th>
+            </tr>
+        </thead>
+        <tbody id="songList"></tbody>
+    </table>
+
+<script>
+// ========== 在这里替换你的全部歌曲数据 ==========
+const songData = [
+    {"name":"走不出这大雨","singer":"单循","lang":"中文","style":"流行","slice":"未切"},
+    {"name":"Pretender","singer":"Official髭男dism","lang":"日语","style":"流行","slice":"未切"},
+    {"name":"絮咏歌","singer":"司南","lang":"中文","style":"国风","slice":"未切"},
+    {"name":"鸳鸯戏","singer":"Babystop_山竹、伊笑","lang":"中文","style":"国风","slice":"未切"},
+    {"name":"离开我的依赖","singer":"王艳薇","lang":"中文","style":"流行；苦情","slice":"未切"}
+    // 把你文档里50首全部按这个格式复制进来即可
+];
+
+// 自动渲染表格
+function renderList() {
+    const listDom = document.getElementById("songList");
+    document.getElementById("songTotal").innerText = songData.length;
+    let html = "";
+    songData.forEach((item, idx) => {
+        html += `
+        <tr>
+            <td>${idx+1}</td>
+            <td>${item.name}</td>
+            <td>${item.singer}</td>
+            <td>${item.lang}</td>
+            <td>${item.style}</td>
+            <td>${item.slice}</td>
+        </tr>
+        `
+    })
+    listDom.innerHTML = html;
+}
+renderList();
+</script>
 </body>
 </html>
